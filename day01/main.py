@@ -1,3 +1,5 @@
+
+
 def main() -> None:
     
     print( 'Loading input...' )
@@ -7,10 +9,13 @@ def main() -> None:
     calibration = 0
 
     for line in Lines:
+        
+        
         for c in line:
             if c.isdigit():
                 calibration = calibration + 10*int(c)
                 break
+
 
         for c in reversed(line):
             if c.isdigit():
@@ -18,7 +23,6 @@ def main() -> None:
                 break
     
     print(calibration)
-
 
 if __name__ == '__main__':
     main()
