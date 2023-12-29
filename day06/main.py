@@ -29,6 +29,8 @@ def main():
             dist = windupTime * (time - windupTime)
             if dist > distance:
                 ways = ways+1
+
+
         
         Races.append(ways)
     
