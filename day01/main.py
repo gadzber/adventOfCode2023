@@ -3,7 +3,7 @@
 def main() -> None:
     
     print( 'Loading input...' )
-    file = open('day01\input.txt', 'r')
+    file = open('day01/data.input', 'r')
     Lines = file.readlines()
 
     calibration = 0

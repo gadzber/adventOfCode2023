@@ -1,5 +1,5 @@
 def main():
-    f = open("data.input", "r")
+    f = open("day06/data.input", "r")
     Lines = f.readlines()
 
     Times = []
@@ -29,8 +29,6 @@ def main():
             dist = windupTime * (time - windupTime)
             if dist > distance:
                 ways = ways+1
-
-
         
         Races.append(ways)
     

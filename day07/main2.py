@@ -4,43 +4,49 @@ class Hand:
         self.bid = bid
         self.type = 0
         self.score = 0
-        self.order = 'AKQJT98765432'
+        self.order = 'AKQT98765432J'
 
     def determineType(self):
-        occurs = [0] * len(self.order)
+            
+        for char in self.order:
+            cardsNew = self.cards.replace('J', char)
 
-        for c in self.cards:
-            n = self.order.find(c)
-            occurs[n] = occurs[n] + 1
-        
-        #AAAAA
-        if 5 in occurs:
-            self.type = 6
-            return
-        
-        #AAAAK
-        if 4 in occurs:
-            self.type = 5
-            return
-        
-        if 3 in occurs:
-            #AAAKK
-            if 2 in occurs:
-                self.type = 4
-                return
-            #AAAKQ
-            else:
-                self.type = 3
-                return
-        #AAKKQ
-        if occurs.count(2) == 2:
-            self.type = 2
-            return
-        
-        #AAKQT
-        if occurs.count(2) == 1:
-            self.type = 1
-            return
+            occurs = [0] * len(self.order)
+            newtype = 0
+            
+            for c in cardsNew:
+                n = self.order.find(c)
+                occurs[n] = occurs[n] + 1
+           
+            
+            #AAKQT
+            if occurs.count(2) == 1:
+                newtype = 1
+
+            #AAKKQ
+            if occurs.count(2) == 2:
+                newtype = 2
+
+            if 3 in occurs:
+                #AAAKK
+                if 2 in occurs:
+                    newtype = 4
+                    
+                #AAAKQ
+                else:
+                    newtype = 3
+
+            #AAAAK
+            if 4 in occurs:
+                newtype = 5
+
+            #AAAAA
+            if 5 in occurs:
+                newtype = 6
+
+            if newtype > self.type:
+                self.type = newtype
+                
     
     def calculateScore(self):
         base = len(self.order)

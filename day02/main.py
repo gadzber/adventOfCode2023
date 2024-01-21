@@ -1,7 +1,7 @@
 def main() -> None:
     
     print( 'Loading input...' )
-    file = open('day02\input.txt', 'r')
+    file = open('day02/data.input', 'r')
     Lines = file.readlines()
 
     limit_red = 12

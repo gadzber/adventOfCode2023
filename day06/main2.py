@@ -1,7 +1,7 @@
 import math
 
 def main():
-    f = open("data.input", "r")
+    f = open("day06/data.input", "r")
     Lines = f.readlines()
 
     

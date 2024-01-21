@@ -78,7 +78,7 @@ def main() -> None:
         if part.char == '*' and part.adj == 2:
             ratio = ratio + part.gearRatio
     
-    
+    print(sum)
     print(ratio)
 
     

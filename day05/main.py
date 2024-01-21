@@ -26,7 +26,7 @@ class Map:
 def main() -> None:
     
     print( 'Loading input...' )
-    file = open('day05\data.input', 'r')
+    file = open('day05/data.input', 'r')
     Lines = file.readlines()
 
     # remove \n
