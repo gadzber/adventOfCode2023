@@ -1,0 +1,113 @@
+import numpy as np
+
+
+def beam(startX, startY,direction,pattern, powered, triggered) -> None:
+    posX = startX
+    posY = startY
+    dir = direction
+
+    while True:
+        if posX<0 or posX>=np.size(pattern,1): return
+        if posY<0 or posY>=np.size(pattern,0): return
+        
+        powered[posY, posX] = True
+        field = pattern[posY, posX]
+
+        match(field):
+            case '.':
+                if dir == 'N': posY -=1
+                if dir == 'S': posY +=1
+                if dir == 'E': posX +=1
+                if dir == 'W': posX -=1
+                continue
+            
+            case '|':
+                if triggered[posY,posX] == True: return
+                triggered[posY,posX] = True
+                
+                if dir in ['E','W']:
+                    beam(posX, posY+1,'S',pattern, powered, triggered)
+                    beam(posX, posY-1,'N',pattern, powered, triggered)
+                    return
+                else:
+                    if dir == 'N': posY -=1
+                    if dir == 'S': posY +=1
+                    continue
+            
+            case '-':
+                if triggered[posY,posX] == True: return
+                triggered[posY,posX] = True
+
+                if dir in ['N','S']:
+                    beam(posX+1, posY,'E',pattern, powered, triggered)
+                    beam(posX-1, posY,'W',pattern, powered, triggered)
+                    return
+                else:
+                    if dir == 'E': posX +=1
+                    if dir == 'W': posX -=1
+                    continue
+            
+            case '\\':
+                match(dir):
+                    case 'N':
+                        dir = 'W'
+                        posX -=1
+                        continue
+                    case 'S':
+                        dir = 'E'
+                        posX +=1
+                        continue
+                    case 'E':
+                        dir = 'S'
+                        posY +=1
+                        continue
+                    case 'W':
+                        dir = 'N'
+                        posY -=1
+                        continue
+            case '/':
+                match(dir):
+                    case 'N':
+                        dir = 'E'
+                        posX +=1
+                        continue
+                    case 'S':
+                        dir = 'W'
+                        posX -=1
+                        continue
+                    case 'E':
+                        dir = 'N'
+                        posY -=1
+                        continue
+                    case 'W':
+                        dir = 'S'
+                        posY +=1
+                        continue
+
+def main():
+    f = open("day16/data.input", "r")
+    text = f.read().splitlines()
+
+    numOfRows = len(text)
+    numOfCols = len(text[0])
+    pattern = np.empty([numOfRows, numOfCols], dtype=np.str_)
+
+    # convert pattern
+    for col in range(numOfCols):
+        for row in range(numOfRows):
+            pattern[row,col] = text[row][col]
+
+    powered = np.zeros([numOfRows, numOfCols], dtype=np.bool_)
+    triggered = np.zeros([numOfRows, numOfCols], dtype=np.bool_)
+
+    beam(0, 0,'E',pattern, powered, triggered)
+    
+    print(pattern)
+    print(powered*1)
+
+    out = np.count_nonzero(powered)
+
+    print(out)
+
+if __name__ == '__main__':
+    main()
